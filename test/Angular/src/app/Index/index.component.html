@@ -1,0 +1,29 @@
+<h1>Customers</h1>
+<p *ngIf="!newList"><em>Loading...</em></p>
+
+
+<table class='table' *ngIf="newList">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Quantity</th>
+      <th>Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let urge of newList">
+      <td>{{ urge.name }} </td>
+      <td>{{ urge.price }}</td>
+      <td>{{ urge.quantity }}</td>
+      <td>{{ urge.type }}</td>
+      <td>
+        <a href="update">Update</a>
+      </td>
+      <td>
+        <a href="delete">Delete</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
