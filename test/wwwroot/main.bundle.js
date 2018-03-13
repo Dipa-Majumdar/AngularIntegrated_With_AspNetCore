@@ -92687,7 +92687,7 @@ webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
 /***/ "./src/app/add/add.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<h1>\r\n  Add New Product\r\n</h1>\r\n\r\n<form #form=\"ngForm\">\r\n  <div class=\"form-group\">\r\n    <label id=\"name\">Name:</label><br>\r\n    <input type=\"text\" id=\"fname\" name=\"Name\" [(ngModel)]=\"model.Name\"><br><br>\r\n\r\n  </div>\r\n  <div class=\"form-group\">\r\n    <label id=\"price\">Price:</label><br>\r\n    <input type=\"text\" id=\"price\" name=\"Price\" [(ngModel)]=\"model.Price\"><br><br>\r\n  </div>\r\n  <div class=\"form-group\">\r\n    <label id=\"quantity\">Quantity:</label><br>\r\n    <input type=\"text\" id=\"quantity\" name=\"Quantity\" [(ngModel)]=\"model.Quantity\"><br><br>\r\n  </div>\r\n  <div class=\"form-group\">\r\n    <label id=\"name\">Type:</label><br>\r\n    <input type=\"text\" id=\"type\" name=\"Type\" [(ngModel)]=\"model.Type\"><br><br>\r\n  </div>\r\n  <div>\r\n    <input type=\"button\" class=\"btn btn-primary\" value=\"Add\" (click)=\"onAddClick();\">\r\n  </div>\r\n</form>\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n<input type=\"button\" class=\"btn btn-primary\" value=\"ViewAll\" (click)=\"onViewClick();\">\r\n"
+module.exports = "<h1>\r\n  Add New Product\r\n</h1>\r\n\r\n<form #form=\"ngForm\">\r\n  <div class=\"form-group\">\r\n    <label id=\"name\">Name:</label><br>\r\n    <input type=\"text\" id=\"fname\" name=\"Name\" [(ngModel)]=\"model.Name\"><br><br>\r\n\r\n  </div>\r\n  <div class=\"form-group\">\r\n    <label id=\"price\">Price:</label><br>\r\n    <input type=\"text\" id=\"price\" name=\"Price\" [(ngModel)]=\"model.Price\"><br><br>\r\n  </div>\r\n  <div class=\"form-group\">\r\n    <label id=\"quantity\">Quantity:</label><br>\r\n    <input type=\"text\" id=\"quantity\" name=\"Quantity\" [(ngModel)]=\"model.Quantity\"><br><br>\r\n  </div>\r\n  <div class=\"form-group\">\r\n    <label id=\"name\">Type:</label><br>\r\n    <input type=\"text\" id=\"type\" name=\"Type\" [(ngModel)]=\"model.Type\"><br><br>\r\n  </div>\r\n  <div>\r\n    <input type=\"button\" class=\"btn btn-primary\" value=\"Add\" (click)=\"onAddClick();\">\r\n  </div>\r\n</form>\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n<input type=\"button\" class=\"btn btn-primary\" value=\"ViewAll\" (click)=\"onViewClick();\">\r\n\r\n<input type=\"button\" class=\"btn btn-primary\" value=\"Home\" (click)=\"onHome();\">\r\n"
 
 /***/ }),
 
@@ -92715,7 +92715,7 @@ var AddComponent = /** @class */ (function () {
         this.http = http;
         this._route = _route;
         this._router = _router;
-        this.model = new product_model_1.Product('', 0, 0, '');
+        this.model = new product_model_1.Product(0, '', 0, 0, '');
     }
     AddComponent.prototype.onAddClick = function () {
         var _this = this;
@@ -92727,6 +92727,9 @@ var AddComponent = /** @class */ (function () {
     };
     AddComponent.prototype.onViewClick = function () {
         this._router.navigate(['/index']);
+    };
+    AddComponent.prototype.onHome = function () {
+        this._router.navigate(['/home']);
     };
     AddComponent = __decorate([
         core_1.Component({
@@ -92805,10 +92808,16 @@ var app_component_1 = __webpack_require__("./src/app/app.component.ts");
 var home_component_1 = __webpack_require__("./src/app/home/home.component.ts");
 var index_component_1 = __webpack_require__("./src/app/index/index.component.ts");
 var add_component_1 = __webpack_require__("./src/app/add/add.component.ts");
+var delete_component_1 = __webpack_require__("./src/app/delete/delete.component.ts");
+var update_component_1 = __webpack_require__("./src/app/update/update.component.ts");
 var appRoutes = [
     { path: 'home', component: home_component_1.HomeComponent },
     { path: 'index', component: index_component_1.IndexComponent },
+    { path: 'delete/:data', component: delete_component_1.DeleteComponent },
+    { path: 'delete', component: delete_component_1.DeleteComponent },
     { path: 'add', component: add_component_1.AddComponent },
+    { path: 'update/:data', component: update_component_1.UpdateComponent },
+    { path: 'update', component: update_component_1.UpdateComponent },
     {
         path: '',
         redirectTo: '/home',
@@ -92824,7 +92833,9 @@ var AppModule = /** @class */ (function () {
                 app_component_1.AppComponent,
                 home_component_1.HomeComponent,
                 index_component_1.IndexComponent,
-                add_component_1.AddComponent
+                add_component_1.AddComponent,
+                delete_component_1.DeleteComponent,
+                update_component_1.UpdateComponent
             ],
             imports: [
                 platform_browser_1.BrowserModule,
@@ -92843,10 +92854,74 @@ exports.AppModule = AppModule;
 
 /***/ }),
 
+/***/ "./src/app/delete/delete.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<p>Product has been deleted. Click below button to view list of all products.</p>\r\n\r\n<input type=\"button\" class=\"btn btn-primary\" value=\"ViewAll\" (click)=\"onViewClick();\">\r\n"
+
+/***/ }),
+
+/***/ "./src/app/delete/delete.component.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+var http_1 = __webpack_require__("./node_modules/@angular/http/esm5/http.js");
+var product_model_1 = __webpack_require__("./src/app/models/product.model.ts");
+var router_1 = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
+var DeleteComponent = /** @class */ (function () {
+    function DeleteComponent(http, _route, _router) {
+        this.http = http;
+        this._route = _route;
+        this._router = _router;
+        this.e = 0;
+        this.model = new product_model_1.Product(0, '', 0, 0, '');
+    }
+    DeleteComponent.prototype.ngOnInit = function () {
+        console.log("reached delete page");
+        this.e = this._route.snapshot.params['data'];
+        console.log("at delete page", this.e);
+        this.http.get('api/SampleData/DeleteProduct1/' + this.e).subscribe(function (result) {
+            console.log(JSON.parse((JSON.parse(JSON.stringify(result)))._body)); // as ProductInventory[];
+        }, function (error) { return console.error(error); });
+        console.log("sending", this.e);
+    };
+    DeleteComponent.prototype.onViewClick = function () {
+        this._router.navigate(['/index']);
+    };
+    DeleteComponent = __decorate([
+        core_1.Component({
+            template: __webpack_require__("./src/app/delete/delete.component.html")
+        }),
+        __metadata("design:paramtypes", [http_1.Http, router_1.ActivatedRoute, router_1.Router])
+    ], DeleteComponent);
+    return DeleteComponent;
+}());
+exports.DeleteComponent = DeleteComponent;
+var ProductInventory = /** @class */ (function () {
+    function ProductInventory() {
+    }
+    return ProductInventory;
+}());
+
+
+/***/ }),
+
 /***/ "./src/app/home/home.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<h1>Welcome to our Inventory System</h1>\r\n\r\n<table class=\"form-inline\">\r\n\r\n  <tr>\r\n    <td><input type=\"button\" class=\"btn btn-primary\" value=\"ViewAll\" (click)=\"onClickView();\"></td>\r\n  </tr>\r\n\r\n \r\n  <tr>\r\n    <td><input type=\"button\" class=\"btn btn-primary\" value=\"Add\" (click)=\"onClickAdd();\"></td>\r\n  </tr>\r\n</table>\r\n"
+module.exports = "<h1>Welcome to our Inventory System</h1>\r\n\r\n<table class=\"form-inline\">\r\n\r\n  <tr>\r\n    <td><input type=\"button\" class=\"btn btn-primary\" value=\"ViewAll\" (click)=\"onClickView();\"></td>\r\n  </tr>\r\n\r\n \r\n  <tr>\r\n    <td><input type=\"button\" class=\"btn btn-primary\" value=\"Add\" (click)=\"onClickAdd();\"></td>\r\n  </tr>\r\n\r\n\r\n  \r\n</table>\r\n"
 
 /***/ }),
 
@@ -92895,7 +92970,7 @@ exports.HomeComponent = HomeComponent;
 /***/ "./src/app/index/index.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<h1>Customers</h1>\r\n<p *ngIf=\"!newList\"><em>Loading...</em></p>\r\n\r\n\r\n<table class='table' *ngIf=\"newList\">\r\n  <thead>\r\n    <tr>\r\n      <th>Name</th>\r\n      <th>Price</th>\r\n      <th>Quantity</th>\r\n      <th>Type</th>\r\n    </tr>\r\n  </thead>\r\n  <tbody>\r\n    <tr *ngFor=\"let urge of newList\">\r\n      <td>{{ urge.name }} </td>\r\n      <td>{{ urge.price }}</td>\r\n      <td>{{ urge.quantity }}</td>\r\n      <td>{{ urge.type }}</td>\r\n      <td>\r\n        <a href=\"update\">Update</a>\r\n      </td>\r\n      <td>\r\n        <a href=\"delete\">Delete</a>\r\n      </td>\r\n    </tr>\r\n  </tbody>\r\n</table>\r\n\r\n"
+module.exports = "<h1>Customers</h1>\r\n<p *ngIf=\"!newList\"><em>Loading...</em></p>\r\n\r\n\r\n<table class='table' *ngIf=\"newList\">\r\n  <thead>\r\n    <tr>\r\n      <th>ID</th>\r\n      <th>Name</th>\r\n      <th>Price</th>\r\n      <th>Quantity</th>\r\n      <th>Type</th>\r\n    </tr>\r\n  </thead>\r\n  <tbody>\r\n    <tr *ngFor=\"let urge of newList\">\r\n      <td>{{ urge.id }}</td>\r\n      <td>{{ urge.name }} </td>\r\n      <td>{{ urge.price }}</td>\r\n      <td>{{ urge.quantity }}</td>\r\n      <td>{{ urge.type }}</td>\r\n      <td>\r\n        <input type=\"button\" class=\"btn btn-primary\" value=\"update\" (click)=\"onUpdate(urge.id);\" />\r\n      </td>\r\n      <td>\r\n        <input type=\"button\" class=\"btn btn-primary\"  value=\"delete\" (click)=\"onDelete(urge.id);\" />\r\n      </td>\r\n    </tr>\r\n  </tbody>\r\n</table>\r\n\r\n<input type=\"button\" class=\"btn btn-primary\" value=\"Home\" (click)=\"onHome();\">\r\n\r\n"
 
 /***/ }),
 
@@ -92917,15 +92992,28 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 var router_1 = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
 var http_1 = __webpack_require__("./node_modules/@angular/http/esm5/http.js");
+var product_model_1 = __webpack_require__("./src/app/models/product.model.ts");
 var IndexComponent = /** @class */ (function () {
     function IndexComponent(http, _route, _router) {
         var _this = this;
+        this.http = http;
         this._route = _route;
         this._router = _router;
+        this.model = new product_model_1.Product(0, '', 0, 0, '');
         http.get('api/SampleData/GetCustomer').subscribe(function (result) {
             _this.newList = result.json();
         }, function (error) { return console.error(error); });
     }
+    IndexComponent.prototype.onHome = function () {
+        this._router.navigate(['/home']);
+    };
+    IndexComponent.prototype.onDelete = function (mod) {
+        console.log("sending from index", mod);
+        this._router.navigate(['delete', mod]);
+    };
+    IndexComponent.prototype.onUpdate = function (mod) {
+        this._router.navigate(['update', mod]);
+    };
     IndexComponent = __decorate([
         core_1.Component({
             selector: 'index',
@@ -92952,7 +93040,8 @@ var ProductInventory = /** @class */ (function () {
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var Product = /** @class */ (function () {
-    function Product(Name, Price, Quantity, Type) {
+    function Product(ID, Name, Price, Quantity, Type) {
+        this.ID = ID;
         this.Name = Name;
         this.Price = Price;
         this.Quantity = Quantity;
@@ -92961,6 +93050,126 @@ var Product = /** @class */ (function () {
     return Product;
 }());
 exports.Product = Product;
+
+
+/***/ }),
+
+/***/ "./src/app/update/update.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<h1>\r\n  Add New Product\r\n</h1>\r\n\r\n<form #form=\"ngForm\">\r\n  <div class=\"form-group\">\r\n    <label id=\"name\">Name:</label><br>\r\n    <input type=\"text\" id=\"fname\" name=\"Name\" [(ngModel)]=\"prod.name\"><br><br>\r\n\r\n  </div>\r\n  <div class=\"form-group\">\r\n    <label id=\"price\">Price:</label><br>\r\n    <input type=\"text\" id=\"price\" name=\"Price\" [(ngModel)]=\"prod.price\"><br><br>\r\n  </div>\r\n  <div class=\"form-group\">\r\n    <label id=\"quantity\">Quantity:</label><br>\r\n    <input type=\"text\" id=\"quantity\" name=\"Quantity\" [(ngModel)]=\"prod.quantity\"><br><br>\r\n  </div>\r\n  <div class=\"form-group\">\r\n    <label id=\"name\">Type:</label><br>\r\n    <input type=\"text\" id=\"type\" name=\"Type\" [(ngModel)]=\" prod.type\"><br><br>\r\n  </div>\r\n  <div>\r\n    <input type=\"button\" class=\"btn btn-primary\" value=\"Add\" (click)=\"onAddClick();\">\r\n  </div>\r\n</form>\r\n\r\n\r\n<!--<table>\r\n  <thead>\r\n    <tr>\r\n      <th>ID</th>\r\n      <th>Name</th>\r\n      <th>Price</th>\r\n      <th>Quantity</th>\r\n      <th>Type</th>\r\n    </tr>\r\n  </thead>\r\n  <tbody>\r\n    <tr>\r\n      <td>{{ prod.id }}</td>\r\n      <td>{{ prod.name }} </td>\r\n      <td>{{ prod.price }}</td>\r\n      <td>{{ prod.quantity }}</td>\r\n      <td>{{ prod.type }}</td>\r\n\r\n\r\n\r\n\r\n\r\n    </tr>\r\n  </tbody>\r\n</table>-->\r\n<!--<input type=\"text\" id=\"lname\" name=\"LastName\" [(ngModel)]=\"prod.id\">-->\r\n<input type=\"button\" class=\"btn btn-primary\" value=\"ViewAll\" (click)=\"onViewClick();\">\r\n\r\n"
+
+/***/ }),
+
+/***/ "./src/app/update/update.component.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [0, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+var http_1 = __webpack_require__("./node_modules/@angular/http/esm5/http.js");
+var product_model_1 = __webpack_require__("./src/app/models/product.model.ts");
+var router_1 = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
+var UpdateComponent = /** @class */ (function () {
+    function UpdateComponent(http, _route, _router) {
+        this.http = http;
+        this._route = _route;
+        this._router = _router;
+        this.e = 0;
+        this.prodnew = new product_model_1.Product(0, '', 0, 0, '');
+    }
+    UpdateComponent.prototype.ngOnInit = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        this.e = this._route.snapshot.params['data'];
+                        return [4 /*yield*/, this.http.get('api/SampleData/UpdateProduct/' + this.e).subscribe(function (result) {
+                                _this.prod = result.json();
+                                // console.log(result.text());
+                                console.log(JSON.parse((JSON.parse(JSON.stringify(result)))._body));
+                            }, function (error) { return console.error(error); })];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    UpdateComponent.prototype.onAddClick = function () {
+        var _this = this;
+        this.prodnew.Name = this.prod.name;
+        this.prodnew.Price = this.prod.price;
+        this.prodnew.Quantity = this.prod.quantity;
+        this.prodnew.Type = this.prod.type;
+        return this.http.post('api/SampleData/AddCustomer', this.prodnew).subscribe(function (result) {
+            _this.newList = result.json();
+        }, function (error) { return console.error(error); });
+    };
+    UpdateComponent.prototype.onViewClick = function () {
+        this._router.navigate(['/index']);
+    };
+    UpdateComponent = __decorate([
+        core_1.Component({
+            selector: 'update',
+            template: __webpack_require__("./src/app/update/update.component.html")
+        }),
+        __metadata("design:paramtypes", [http_1.Http, router_1.ActivatedRoute, router_1.Router])
+    ], UpdateComponent);
+    return UpdateComponent;
+}());
+exports.UpdateComponent = UpdateComponent;
+var ProductInventory = /** @class */ (function () {
+    function ProductInventory() {
+    }
+    return ProductInventory;
+}());
 
 
 /***/ }),

@@ -27,5 +27,21 @@ namespace test.Controllers
             _productData.Add(model);
             return _productData.GetAll();
         }
+        [HttpGet("[action]/{e}")]
+        public void DeleteProduct1([FromRoute]int e)
+        {
+            
+            _productData.DeleteProduct(e);
+           //return _productData.GetAll();
+        }
+        [HttpGet("[action]/{e}")]
+        public ProductInventory UpdateProduct([FromRoute]int e)
+        {
+            
+            ProductInventory prod = new ProductInventory();
+            prod=_productData.Update(e);
+            _productData.DeleteProduct(e);
+            return prod;
+        }
     }
 }

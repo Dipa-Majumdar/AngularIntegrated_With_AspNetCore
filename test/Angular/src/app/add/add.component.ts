@@ -15,7 +15,7 @@ export class AddComponent {
     
   }
 
-  model = new Product('', 0, 0, '');
+  model = new Product(0,'', 0, 0, '');
 
 
   onAddClick() {
@@ -31,6 +31,9 @@ export class AddComponent {
   onViewClick()
   {
     this._router.navigate(['/index']);
+  }
+  onHome() {
+    this._router.navigate(['/home'])
   }
 }
 class ProductInventory {

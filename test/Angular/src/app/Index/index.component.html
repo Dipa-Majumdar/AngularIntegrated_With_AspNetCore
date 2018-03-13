@@ -5,6 +5,7 @@
 <table class='table' *ngIf="newList">
   <thead>
     <tr>
+      <th>ID</th>
       <th>Name</th>
       <th>Price</th>
       <th>Quantity</th>
@@ -13,17 +14,20 @@
   </thead>
   <tbody>
     <tr *ngFor="let urge of newList">
+      <td>{{ urge.id }}</td>
       <td>{{ urge.name }} </td>
       <td>{{ urge.price }}</td>
       <td>{{ urge.quantity }}</td>
       <td>{{ urge.type }}</td>
       <td>
-        <a href="update">Update</a>
+        <input type="button" class="btn btn-primary" value="update" (click)="onUpdate(urge.id);" />
       </td>
       <td>
-        <a href="delete">Delete</a>
+        <input type="button" class="btn btn-primary"  value="delete" (click)="onDelete(urge.id);" />
       </td>
     </tr>
   </tbody>
 </table>
+
+<input type="button" class="btn btn-primary" value="Home" (click)="onHome();">
 

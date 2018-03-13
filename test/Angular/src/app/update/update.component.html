@@ -1,0 +1,56 @@
+<h1>
+  Add New Product
+</h1>
+
+<form #form="ngForm">
+  <div class="form-group">
+    <label id="name">Name:</label><br>
+    <input type="text" id="fname" name="Name" [(ngModel)]="prod.name"><br><br>
+
+  </div>
+  <div class="form-group">
+    <label id="price">Price:</label><br>
+    <input type="text" id="price" name="Price" [(ngModel)]="prod.price"><br><br>
+  </div>
+  <div class="form-group">
+    <label id="quantity">Quantity:</label><br>
+    <input type="text" id="quantity" name="Quantity" [(ngModel)]="prod.quantity"><br><br>
+  </div>
+  <div class="form-group">
+    <label id="name">Type:</label><br>
+    <input type="text" id="type" name="Type" [(ngModel)]=" prod.type"><br><br>
+  </div>
+  <div>
+    <input type="button" class="btn btn-primary" value="Add" (click)="onAddClick();">
+  </div>
+</form>
+
+
+<!--<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Quantity</th>
+      <th>Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{ prod.id }}</td>
+      <td>{{ prod.name }} </td>
+      <td>{{ prod.price }}</td>
+      <td>{{ prod.quantity }}</td>
+      <td>{{ prod.type }}</td>
+
+
+
+
+
+    </tr>
+  </tbody>
+</table>-->
+<!--<input type="text" id="lname" name="LastName" [(ngModel)]="prod.id">-->
+<input type="button" class="btn btn-primary" value="ViewAll" (click)="onViewClick();">
+

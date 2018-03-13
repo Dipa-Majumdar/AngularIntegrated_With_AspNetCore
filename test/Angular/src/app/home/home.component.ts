@@ -9,11 +9,7 @@ import { Product } from '../models/product.model';
 })
 
 export class HomeComponent {
-
-
-
   constructor(public _route: ActivatedRoute, public _router: Router) { }
-  
  
   onClickView() {
     this._router.navigate(['/index']);
@@ -21,6 +17,7 @@ export class HomeComponent {
   onClickAdd() {
     this._router.navigate(['/add']);
   }
+  
 
 }
 

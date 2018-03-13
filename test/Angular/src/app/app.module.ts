@@ -8,12 +8,18 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { IndexComponent } from './index/index.component';
 import { AddComponent } from './add/add.component';
+import { DeleteComponent } from './delete/delete.component';
+import { UpdateComponent } from './update/update.component';
 
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'index', component: IndexComponent },
+  { path: 'delete/:data', component: DeleteComponent },
+  { path: 'delete', component: DeleteComponent },
   { path: 'add', component: AddComponent },
+  { path: 'update/:data', component: UpdateComponent },
+  { path: 'update', component: UpdateComponent },
   {
     path: '',
     redirectTo: '/home',
@@ -28,7 +34,9 @@ const appRoutes: Routes = [
     AppComponent,
     HomeComponent,
     IndexComponent,
-    AddComponent
+    AddComponent,
+    DeleteComponent,
+    UpdateComponent
   ],
   imports: [
     BrowserModule,
