@@ -32,7 +32,6 @@ namespace test.Controllers
         {
             
             _productData.DeleteProduct(e);
-           //return _productData.GetAll();
         }
         [HttpGet("[action]/{e}")]
         public ProductInventory UpdateProduct([FromRoute]int e)
